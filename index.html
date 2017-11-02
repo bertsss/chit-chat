@@ -19,7 +19,6 @@
     <div id="usernameBox" class="row">
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
-        <p id="userError"></p>
         <form id="userForm">
           <div class="input-group">
               <input id="nickname" autocomplete="off" type="text" class="form-control" placeholder="Enter your nickname">
@@ -28,16 +27,21 @@
               </span>
           </div>
         </form>
+        <p id="userError"></p>
       </div>
       <div class="col-sm-3"></div>
       
     </div>
 
     <div id="chatBox" class="col-sm-12">
-      <ul id="messages" class="border"></ul>
-
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-11">
+          <ul id="messages" class="border"></ul>
+        </div>
+        <div class="col-sm-1" id="users"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-11">
           <form id="messageForm">
             <div class="input-group">
                 <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Enter message...">
@@ -74,8 +78,25 @@
           return false;
         });
 
-        socket.on('chat message', function (msg){
-          $('#messages').append($('<li>').text(msg));
+        socket.on('chat message', function (data){
+          $('#messages').append($('<li>').html('<b>' + data.nick + ': </b>' + data.msg));
+        });
+
+        socket.on('new user', function (data){
+          if(data){
+            $('#usernameBox').hide();
+            $('#chatBox').show();
+          } else {
+            $('#userError').html('The nickname is already been used! Try again');
+          }
+        });
+
+        socket.on('usernames', function(data){
+          var html = '';
+          for(i = 0; i < data.length; i++){
+            html += data[i] + '</br>';
+          }
+          $('#users').html(html);
         });
 
         socket.on('user connected', function (data){
