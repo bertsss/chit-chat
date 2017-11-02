@@ -33,15 +33,18 @@
       
     </div>
 
-    <div id="chatBox" class="col-sm-12">
+    <div id="chatBox" class="container-fluid">
       <div class="row">
-        <div class="col-sm-11">
+          <div class="col-sm-2">
+            <h1 class="text-center"><span class="badge badge-primary">Users Online</span></h1>
+            <div class="panel text-center">
+              <div class="panel-body" id="users"></div>
+            </div>
+          </div>
+
+        <div class="col-sm-10">
           <ul id="messages" class="border"></ul>
-        </div>
-        <div class="col-sm-1" id="users"></div>
-      </div>
-      <div class="row">
-        <div class="col-sm-11">
+
           <form id="messageForm">
             <div class="input-group">
                 <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Enter message...">
@@ -50,10 +53,10 @@
                 </span>
             </div>
           </form>
+          
         </div>
+        
       </div>
-
-    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
